@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="https://tlk.io/librery" class="nav__link">
+                        <a href="https://tawk.to/chat/66f45328e5982d6c7bb44307/1i8l69lld" class="nav__link">
                             <i class="ri-chat-1-line"></i>
                             <span>Sugerir</span>
                         </a>
@@ -138,58 +138,7 @@
 
     <script src="assets/js/script.js"></script>
 
-   <!-- Firebase Imports -->
-<script type="module">
-    // Importa las funciones necesarias de Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
-
-    // Configuración de tu app de Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyA3QeBXOmAB43R5fmDN3_JCZacXxDed6E4",
-        authDomain: "mensajes-1174f.firebaseapp.com",
-        projectId: "mensajes-1174f",
-        storageBucket: "mensajes-1174f.appspot.com",
-        messagingSenderId: "562891966571",
-        appId: "1:562891966571:web:bfda55ce5126ca07ad492e",
-        measurementId: "G-0P4KNQ53XG"
-    };
-
-    // Inicializa Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    // Función para obtener los mensajes de tlk.io
-    function getMessages() {
-        let messages = '';
-        const messageElements = document.querySelectorAll('.message'); // Asegúrate de que este selector es correcto
-        messageElements.forEach(message => {
-            messages += message.innerText + '\n';
-        });
-        return messages.trim();
-    }
-
-    // Función para enviar mensajes a Firebase
-    function sendMessagesToFirebase(message) {
-        const messagesRef = ref(database, 'messages/');
-        push(messagesRef, {
-            message: message,
-            timestamp: new Date().toISOString()
-        }).then(() => {
-            console.log("Mensaje enviado a Firebase");
-        }).catch((error) => {
-            console.error("Error al enviar el mensaje a Firebase: ", error);
-        });
-    }
-
-    // Envío automático de mensajes cada 5 minutos
-    setInterval(() => {
-        const message = getMessages();
-        if (message) {
-            sendMessagesToFirebase(message);
-        }
-    }, 300000); // Cada 5 minutos
-</script>
+  
 
 </body>
 </html>
