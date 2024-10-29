@@ -6,13 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle menu on mobile
     navToggle.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent click from propagating to document
+        e.stopPropagation();
         navMenu.classList.toggle('show-menu');
-        if (navMenu.classList.contains('show-menu')) {
-            navToggle.innerHTML = '<i class="ri-close-line"></i>';
-        } else {
-            navToggle.innerHTML = '<i class="ri-menu-3-line"></i>';
-        }
+        navToggle.innerHTML = navMenu.classList.contains('show-menu') 
+            ? '<i class="ri-close-line"></i>' 
+            : '<i class="ri-menu-3-line"></i>';
     });
 
     // Toggle dropdowns on mobile
@@ -56,5 +54,30 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-});
 
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Lazy loading for images
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const image = entry.target;
+                    image.src = image.dataset.src;
+                    image.classList.remove('lazy');
+                    observer.unobserve(image);
+                }
+            });
+        });
+
+        document.querySelectorAll('img.lazy').forEach(img => imageObserver.observe(img));
+    }
+});
